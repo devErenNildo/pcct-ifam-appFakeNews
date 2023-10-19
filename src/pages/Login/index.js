@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, Keyboard, Pressable } from "react-native";
-// import { Entypo } from '@expo/vector-icons';
+import { View, Text, Image, TextInput, TouchableOpacity, Keyboard, Pressable, Alert } from "react-native";
 import styles from "./styles";
+import Input from "../../components/Input";
+import InputPassword from "../../components/InputPassword";
 
 
 
 const Login = ({navigation}) =>{
 
     // controle das cores dos inputs quando estão em foco
-    const [ input01, setInput01 ] = useState(false);
-    const [ input02, setInput02 ] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const [ name, setName ] = useState('');
+    const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ userLogged, setUserLogged ] = useState('');
 
@@ -42,66 +41,17 @@ const Login = ({navigation}) =>{
             {/* inicio inputs de Login */}
             <View style={styles.containerInputs}>
                 {/* inicio input de e-mail */}
-                <View style={[styles.boxInput, {
-                    backgroundColor: input01 ? '#2F9E41' : '#fff'
-                }]}>
-                    <TextInput
-                        style={styles.input}
-                        onFocus={()=> setInput01(true)}
-                        onBlur={()=> setInput01(false)}
-                        placeholder="email"
-                        placeholderTextColor="#808080"
-                        onChangeText={setName}
-                    />
-                </View>
+                <Input placeholder={'email'} value={email} setValue={setEmail}/>
                 {/* fim input de e-mail */}
 
                 {/* Input de senha */}
-                <View style={[styles.boxInput, {
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    backgroundColor: input02 ? '#2F9E41' : '#fff'
-                }]}>
-                    <TextInput
-                        style={[styles.input, {
-                            flex: 1
-                        }]}
-                        onFocus={()=> setInput02(true)}
-                        onBlur={()=> setInput02(false)}
-                        placeholder="senha"
-                        placeholderTextColor="#808080"
-                        secureTextEntry={!passwordVisible}
-                        onChangeText={setPassword}
-                    />
-
-                    {/* Botão de visibilidade de senha */}
-                    <TouchableOpacity
-                        style={styles.boxEye}
-                        onPress={()=> setPasswordVisible(!passwordVisible)}
-                    >
-                        {
-                            passwordVisible
-                            ?
-                                <Image
-                                    style={styles.eyePassword}
-                                    source={ input02 ? require('../../assets/closedEyeGreen.png') : require('../../assets/closedEye.png')}
-                                    
-                                />
-                            :
-                                <Image
-                                    style={styles.eyePassword}
-                                    source={ input02 ? require('../../assets/eyeGreen.png') : require('../../assets/eye.png')}
-                                />  
-                        }
-                    </TouchableOpacity>
-                </View>
+                <InputPassword placeholder={'senha'} value={password} setValue={setPassword}/>
+                {/* fim inputs de Login */}
             </View>
-            {/* fim inputs de Login */}
 
             {/* Botão de Login */}
             <TouchableOpacity
-                // onPress={authUser}
-                // onPress={()=> alert(config.API)}
+                onPress={()=> console.log(email)}
                 style={styles.containerBtLogin}
             >
                 <View style={styles.boxBtLogin}>

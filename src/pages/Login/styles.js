@@ -22,29 +22,40 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     containerInputs:{
-        alignItems: 'center'
+        padding: 25,
+        paddingHorizontal: 30
+        // width: "78%",
+        // alignItems: 'center'
     },
     boxInput:{
         width: '80%',
         marginTop: 10,
-        height: 42
+        height: 42,
+        justifyContent: 'flex-start',
+        borderBottomWidth: 2,
+        // borderColor: 'red'
     },
     input:{
-        backgroundColor: '#2F4F4F',
+        // backgroundColor: '#2F4F4F',
         height: 40,
-        borderColor: '#fff',
+        // borderColor: '#fff',
         paddingLeft: 10,
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 20
+        fontSize: 18,
+        paddingBottom: -5,
+
+        
     },
     containerBtLogin:{
         alignItems: 'center',
         marginTop: 35,
+        width: "100%",
+        paddingHorizontal: 30
     },
     boxBtLogin:{
         backgroundColor: '#fff',
-        width: '78%',
+        width: '100%',
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
