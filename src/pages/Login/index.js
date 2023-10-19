@@ -8,9 +8,6 @@ import InputPassword from "../../components/InputPassword";
 
 const Login = ({navigation}) =>{
 
-    // controle das cores dos inputs quando estão em foco
-    const [passwordVisible, setPasswordVisible] = useState(false);
-
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ userLogged, setUserLogged ] = useState('');
@@ -68,7 +65,7 @@ const Login = ({navigation}) =>{
                 </Text>
                 <TouchableOpacity
                     style={styles.boxRegister}
-                    // onPress={()=> navigation.navigate('register')}
+                    onPress={()=> navigation.navigate('Register')}
                 >
                     <Text style={[styles.textRegister, {color: 'red'}]}>
                         Registre-se aqui.
