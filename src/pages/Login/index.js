@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { View, Text, Image, TextInput, TouchableOpacity, Keyboard, Pressable, Alert } from "react-native";
 import styles from "./styles";
 import Input from "../../components/Input";
 import InputPassword from "../../components/InputPassword";
+
+// import AuthProvider from "../../contexts/auth.js";
+import { AuthContext } from "../../contexts/auth"
 
 
 
@@ -14,7 +17,7 @@ const Login = ({navigation}) =>{
 
     const [ loading, setLoading ] = useState(false);
 
-
+    const {user} = useContext(AuthContext);
 
     return(
         <Pressable style={styles.container} onPress={()=> Keyboard.dismiss()}>
@@ -48,7 +51,7 @@ const Login = ({navigation}) =>{
 
             {/* Botão de Login */}
             <TouchableOpacity
-                onPress={()=> console.log(email)}
+                onPress={()=> console.log(user)}
                 style={styles.containerBtLogin}
             >
                 <View style={styles.boxBtLogin}>

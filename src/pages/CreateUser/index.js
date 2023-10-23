@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, Image, Modal, Pressable, Keyboard } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 import styles from "./style";
 
 import Btn from "../../components/Btn";
 import BackBtn from "../../components/BackBtn";
 import Input from "../../components/Input";
+import InputPassword from "../../components/InputPassword";
 
 
 const CreateUser = ({navigation}) => {
@@ -72,15 +74,21 @@ const CreateUser = ({navigation}) => {
                 <Pressable style={styles.container} onPress={()=> Keyboard.dismiss()}>
                     <BackBtn onPress={()=> setModal02(false)} />
                     <Text style={styles.text03}>
-                        Se identifique melhor
+                        Qual a sua turma ?
                     </Text>
 
-                    <Input placeholder={'Qual sua turma'} value={turma} setValue={setTurma}/>
-
-                    {/* <Input placeholder={'Imagem de perfil'} value={avatar} setValue={setAvatar}/>
-
-                    <Input placeholder={'Imagem de fundo'} value={background} setValue={setBackground}/> */}
-
+                    <View style={styles.boxTurma}>
+                    <Picker
+                        selectedValue={turma}
+                        onValueChange={(item)=> setTurma(item)}
+                    >
+                        <Picker.Item label="Programação de Jogos" value="jogos"/>
+                        <Picker.Item label="Informática" value="info"/>
+                        <Picker.Item label="Informática para Internet" value="infoNet"/>
+                        <Picker.Item label="Recursos pesqueiros" value="rp"/>
+                        <Picker.Item label="Administração" value="adm"/>
+                    </Picker>
+                    </View>
                     {
                         turma === ""
                         ? null
@@ -100,9 +108,9 @@ const CreateUser = ({navigation}) => {
                         Agora crie uma senha
                     </Text>
 
-                    <Input placeholder={'Digite sua senha'} value={password} setValue={setPassword}/>
+                    <InputPassword placeholder={'Digite sua senha'} value={password} setValue={setPassword}/>
 
-                    <Input placeholder={'Confirme sua senha'} value={checkPassword} setValue={setCheckPassword}/>
+                    <InputPassword placeholder={'Confirme sua senha'} value={checkPassword} setValue={setCheckPassword}/>
 
                     {
                         (password === '' || checkPassword === '')

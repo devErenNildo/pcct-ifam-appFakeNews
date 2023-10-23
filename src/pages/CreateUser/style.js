@@ -25,6 +25,13 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    boxTurma:{
+        borderWidth: 2,
+        borderColor: '#808080',
+        borderRadius: 15,
+        marginTop: 25
+
     }
 });
 
