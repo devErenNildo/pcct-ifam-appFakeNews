@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, Keyboard, Pressable, Alert } from "react-native";
+import { View, Text, Image, TouchableOpacity, Keyboard, Pressable, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import Input from "../../components/Input";
 import InputPassword from "../../components/InputPassword";
@@ -14,7 +14,7 @@ const Login = ({navigation}) =>{
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
 
-    const {user, login } = useContext(AuthContext);
+    const { login, loading } = useContext(AuthContext);
 
     return(
         <Pressable style={styles.container} onPress={()=> Keyboard.dismiss()}>
@@ -52,9 +52,12 @@ const Login = ({navigation}) =>{
                 style={styles.containerBtLogin}
             >
                 <View style={styles.boxBtLogin}>
-                    <Text style={styles.textBtLogin}>
-                        Login
-                    </Text>
+                    {
+                        loading 
+                        ? <ActivityIndicator size={20} color={'#2F9E41'} />
+                        : <Text style={styles.textBtLogin}>Login</Text>
+                    }
+
                 </View>
             </TouchableOpacity>
 

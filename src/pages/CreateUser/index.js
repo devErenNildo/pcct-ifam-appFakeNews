@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, Image, Modal, Pressable, Keyboard } from "react-native";
+import { View, Text, Image, Modal, Pressable, Keyboard, ActivityIndicator } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 import { AuthContext } from "../../contexts/auth";
@@ -27,7 +27,7 @@ const CreateUser = ({navigation}) => {
     const [ password, setPassword ] = useState('');
     const [ checkPassword, setCheckPassword ] = useState('');
 
-    const { cadastrar } = useContext(AuthContext);
+    const { cadastrar, loading } = useContext(AuthContext);
 
     return(
         <View style={styles.container}>
@@ -120,8 +120,10 @@ const CreateUser = ({navigation}) => {
                         (password === '' || checkPassword === '')
                         ? null
                         : password === checkPassword 
-                            ? <Btn title={'Finalizar'}  onPress={()=> cadastrar(name, username, email, password, turma)} color={'#2F9E41'}/>
-                            // ? <Button title="teste" onPress={createUser}/>
+                            ? loading
+                                ? <ActivityIndicator size={20} color={'#fff'}/>
+                                : <Btn title={'Finalizar'}  onPress={()=> cadastrar(name, username, email, password, turma)} color={'#2F9E41'}/>
+                                
                             : <Btn title={'senhas incorretas'} onPress={() => alert('senhas incorretas')} color={'red'}/> 
                     }
                 </Pressable>
