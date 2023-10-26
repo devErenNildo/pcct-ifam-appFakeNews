@@ -13,11 +13,8 @@ const Login = ({navigation}) =>{
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ userLogged, setUserLogged ] = useState('');
 
-    const [ loading, setLoading ] = useState(false);
-
-    const {user} = useContext(AuthContext);
+    const {user, login } = useContext(AuthContext);
 
     return(
         <Pressable style={styles.container} onPress={()=> Keyboard.dismiss()}>
@@ -51,7 +48,7 @@ const Login = ({navigation}) =>{
 
             {/* Botão de Login */}
             <TouchableOpacity
-                onPress={()=> console.log(user)}
+                onPress={()=> login(email, password)}
                 style={styles.containerBtLogin}
             >
                 <View style={styles.boxBtLogin}>
