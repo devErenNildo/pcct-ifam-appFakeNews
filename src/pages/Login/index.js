@@ -49,6 +49,7 @@ const Login = ({navigation}) =>{
             {/* Botão de Login */}
             <TouchableOpacity
                 onPress={()=> login(email, password)}
+                // onPress={()=> console.log(email, password)}
                 style={styles.containerBtLogin}
             >
                 <View style={styles.boxBtLogin}>

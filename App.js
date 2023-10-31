@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'react-native';
 
 import AuthProvider from './src/contexts/auth.js';
+import Auth from './src/routes/Auth.js';
 
 
 

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backImg:{
         width: '100%',
         height: 200,
-        position: 'absolute'
+        position: 'absolute',
     },
     avatar:{
         width: 150,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     containerName01:{
-        marginTop: 170,
+        marginTop: 220,
         paddingHorizontal: 20
     },
     boxName:{

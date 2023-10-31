@@ -11,6 +11,8 @@ const AuthProvider = ({ children }) => {
     const [ user, setUser ] = useState(null);
     const [ loading, setLoading ] = useState(false);
     const [ token, setToken ] = useState('');
+    const [ news, setNews ] = useState([]);
+    const [ warnings, setWarnings ] = useState([]);
     const navigation = useNavigation();
 
 
@@ -29,6 +31,7 @@ const AuthProvider = ({ children }) => {
                 username,
                 turma,
                 _id,
+                email: email
             }); 
             api.defaults.headers['Authorization'] = `Bearer ${token}`
             setLoading(false);
@@ -57,9 +60,53 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const viewNews =  async () => {
+        setLoading(true);
+        try {
+            const response = await api.get('/post');
+            setLoading(false)
+            if (JSON.stringify(response.data) !== JSON.stringify(news)) {
+                setNews(response.data);
+            }
+            // setNews(response.data);
+            // console.log(news);
+        } catch (error) {
+            Alert.alert('Erro ao carregar notícias');
+        }
+    }
+
+
+    const viewWarning = async () => {
+        setLoading(true);
+        try {
+            const response = await api.get('/aviso');
+            setLoading(false);
+            if (JSON.stringify(response.data) !== JSON.stringify(warnings)) {
+                setWarnings(response.data);
+            }
+        } catch (error) {
+            Alert.alert('Erro ao carregar os avisos');
+        }
+    }
+
+    const createPost = async ( title, banner, text ) => {
+        setLoading(true);
+        try {
+            const response = await api.post('/post/create', {
+                title,
+                banner,
+                text,
+                user: user._id
+            });
+            setLoading(false);
+        } catch (error) {
+            Alert.alert('Erro ao fazer publicação');
+        }
+    }
+
 
     return(
-        <AuthContext.Provider value={{ login, user, cadastrar, loading }}>
+        <AuthContext.Provider value={{ login, user, cadastrar, loading, viewNews, news, viewWarning, warnings, createPost }}>
             {children}
         </AuthContext.Provider>
     )

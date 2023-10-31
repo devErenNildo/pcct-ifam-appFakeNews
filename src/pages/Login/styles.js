@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     },
     boxBtLogin:{
         backgroundColor: '#fff',
-        width: '100%',
+        // width: '100%',
+        width: 300,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',

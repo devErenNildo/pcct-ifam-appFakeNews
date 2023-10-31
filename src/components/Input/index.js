@@ -6,29 +6,32 @@ const Input = (props) => {
     const [ modal01, setModal01 ] = useState(false);
 
     return(
-        <View style={[styles.container, {
-            borderColor: modal01 ? '#cfcfcf' : '#808080'
-        }]}>
-            {
-                modal01
-                ? <Text style={styles.text}>{props.placeholder}</Text>
-                : null
-            }
-            <TextInput
-                style={styles.input}
-                onFocus={()=> setModal01(true)}
-                onBlur={()=> setModal01(false)}
-                placeholder={ modal01 ? '' : props.placeholder }
-                placeholderTextColor='#808080'
-                value={props.value}
-                onChangeText={props.setValue}
-            />
+        <View style={{alignItems: 'center'}}>
+            <View style={[styles.container, {
+                borderColor: modal01 ? '#cfcfcf' : '#808080'
+            }]}>
+                {
+                    modal01
+                    ? <Text style={styles.text}>{props.placeholder}</Text>
+                    : null
+                }
+                <TextInput
+                    style={styles.input}
+                    onFocus={()=> setModal01(true)}
+                    onBlur={()=> setModal01(false)}
+                    placeholder={ modal01 ? '' : props.placeholder }
+                    placeholderTextColor='#808080'
+                    value={props.value}
+                    onChangeText={props.setValue}
+                />
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        width: 300,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         height: 60,
         justifyContent: 'center',

@@ -7,34 +7,36 @@ const InputPassword = (props) => {
     const [ passwordVisible, setPasswordVisible ] = useState(false);
 
     return(
-        <View style={[styles.container, {
-            borderColor: modal01 ? '#cfcfcf' : '#808080'
-        }]}>
-            <View style={styles.containerInput}>
-                {
-                    modal01
-                    ? <Text style={styles.text}>{props.placeholder}</Text>
-                    : null
-                }
-                <TextInput
-                    style={styles.input}
-                    onFocus={()=> setModal01(true)}
-                    onBlur={()=> setModal01(false)}
-                    placeholder={ props.placeholder }
-                    placeholderTextColor='#808080'
-                    value={props.value}
-                    onChangeText={props.setValue}
-                    secureTextEntry={!passwordVisible}
-                />
-            </View>
-            <View>
-                <Switch
-                    value={passwordVisible}
-                    onValueChange={()=> setPasswordVisible(!passwordVisible)}
-                />
-                {
-                    passwordVisible ? <Text>Ocultar senha</Text> : <Text>Ver senha</Text>
-                }
+        <View style={{alignItems: 'center'}}>
+            <View style={[styles.container, {
+                borderColor: modal01 ? '#cfcfcf' : '#808080'
+            }]}>
+                <View style={styles.containerInput}>
+                    {
+                        modal01
+                        ? <Text style={styles.text}>{props.placeholder}</Text>
+                        : null
+                    }
+                    <TextInput
+                        style={styles.input}
+                        onFocus={()=> setModal01(true)}
+                        onBlur={()=> setModal01(false)}
+                        placeholder={ props.placeholder }
+                        placeholderTextColor='#808080'
+                        value={props.value}
+                        onChangeText={props.setValue}
+                        secureTextEntry={!passwordVisible}
+                    />
+                </View>
+                <View>
+                    <Switch
+                        value={passwordVisible}
+                        onValueChange={()=> setPasswordVisible(!passwordVisible)}
+                    />
+                    {
+                        passwordVisible ? <Text>Ocultar senha</Text> : <Text>Ver senha</Text>
+                    }
+                </View>
             </View>
         </View>
     );
@@ -51,7 +53,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         borderColor: '#808080',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: 300
     },
     containerInput: {
         justifyContent: 'center',
