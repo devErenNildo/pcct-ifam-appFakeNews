@@ -1,14 +1,15 @@
 import React, { createContext, useState } from "react";
-import axios from "axios";
-import { Alert } from "react-native";
+import { Alert, PermissionsAndroid } from "react-native";
 import api from "../services/api";
 import { useNavigation } from "@react-navigation/native";
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
 
     const [ user, setUser ] = useState(null);
+    const [ avatarImage, setAvatarImage ] = useState(null);
     const [ loading, setLoading ] = useState(false);
     const [ token, setToken ] = useState('');
     const [ news, setNews ] = useState([]);
@@ -24,14 +25,17 @@ const AuthProvider = ({ children }) => {
                 password: password
             });
 
-            const { name, username, turma, _id } = response.data.user;
+            const { name, username, turma, _id, avatar, background } = response.data.user;
             const { token } = response.data;
+            setToken(token);
             setUser({
                 name,
                 username,
                 turma,
                 _id,
-                email: email
+                email: email,
+                avatar,
+                background
             }); 
             api.defaults.headers['Authorization'] = `Bearer ${token}`
             setLoading(false);
@@ -50,7 +54,9 @@ const AuthProvider = ({ children }) => {
                 "username": username,
                 "email": email,
                 "password": password,
-                "turma": turma
+                "turma": turma,
+                "avatar": "notImage",
+                "background": "notImage"
             });
             setLoading(false);
             navigation.goBack();
@@ -104,9 +110,79 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const getAvatar = async () => {
+        try {
+            const response = await api.get('/pictures/avatar');
+            // console.log(response.data);
+            response.data.forEach((e) => {
+                if(e.user === user._id){
+                    setAvatarImage({
+                        id: e._id,
+                        src: e.src.slice(6)
+                    });
+                    console.log(avatarImage);
+                }
+            });
+        } catch (error) {
+            
+        }
+    }
+
+        const createAvatar = async () => {
+            Alert.alert("Selecione", "De onde você quer pegar a foto", [
+                {
+                    text: "Galeria",
+                    onPress: () => pickImageFromGalery(),
+                    style: "default"
+                },
+                {
+                    text: "Câmera",
+                    onPress: () => pickImageFromCamera(),
+                    style: "default"
+                }
+            ]);
+        }
+    
+        const pickImageFromGalery = async () => {
+    
+            const options = {
+                mediaType: 'photo'
+            }
+    
+            const result = await launchImageLibrary(options);
+                try {
+                    const image = result.assets[0];
+
+                    const data = new FormData();
+                    data.append('file', {
+                        uri: image.uri,
+                        name: image.fileName,
+                        type: image.type
+                    });
+                    data.append('name', 'imageUser');
+                    data.append('user', user._id);
+
+                    const headers = {
+                        'headers': {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                    const response = await api.post('/pictures/avatar', data);
+                    console.log(response.data);
+                    Alert.alert("Tudo certo", "Imagem atualizada com sucesso");
+                } catch (error) {
+                    Alert.alert("Erro", "Erro ao carregar a imagem, tente novamente");
+                    console.error(error);
+                }
+    
+        }
+        const pickImageFromCamera = () => {
+    
+        }
+
 
     return(
-        <AuthContext.Provider value={{ login, user, cadastrar, loading, viewNews, news, viewWarning, warnings, createPost }}>
+        <AuthContext.Provider value={{ login, user, cadastrar, loading, viewNews, news, viewWarning, warnings, createPost, createAvatar, getAvatar, avatarImage }}>
             {children}
         </AuthContext.Provider>
     )

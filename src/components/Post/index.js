@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Text, Image, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/AntDesign';
 import styles from './styles';
 
 
@@ -27,36 +28,35 @@ const Post = ({ item }) => {
             {item.user.username}
           </Text>
         </View>
-        <Image
-          source={{
-            uri: item.banner,
-          }}
-          style={styles.img}
-        />
-        <Text
-          style={styles.textTitle}
-        >
-          {item.title}
-        </Text>
-        <Text
-          style={styles.textBody}
-        >
-          {item.text.substring(0, 255) + '...'}
+          <Image
+            source={{
+              uri: item.banner,
+            }}
+            style={styles.img}
+          />
           <Text
-            style={styles.textReadMore}
+            style={styles.textTitle}
           >
-            Leia mais
+            {item.title}
           </Text>
-        </Text>
+          <Text
+            style={styles.textBody}
+          >
+            {item.text.substring(0, 255) + '...'}
+            <Text
+              style={styles.textReadMore}
+            >
+              Leia mais
+            </Text>
+          </Text>
         <View
           style={styles.bottomBar}
         >
-          <TouchableOpacity
-            onPress={()=> alert('Pegou virus')}
-          >
-            {/* <AntDesign name="hearto" size={24} color="black" /> */}
-            <Text>coração</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+            onPress={()=> Alert.alert('Pegou virus')}
+        >
+            <Icon name='hearto' size={25} color='#000' />
+        </TouchableOpacity>
           <Text style={styles.userText}>
             {item.likes}
           </Text>

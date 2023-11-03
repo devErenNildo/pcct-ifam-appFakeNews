@@ -1,17 +1,28 @@
 import React, {useState, useEffect, useContext} from "react";
-import { View, Text, Button, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Button, Image, TouchableOpacity, ScrollView, Modal, FlatList, Alert } from "react-native";
 import styles from "./styles";
-import axios from "axios";
 import ProfileText from "../../components/ProfileText";
+import url from "../../services/url";
 
 import { AuthContext } from "../../contexts/auth";
 
 const Profile = () => {
 
-    const { user } = useContext(AuthContext);
 
-    // const [user, setUser] = useState('');
+    const { user, createAvatar, avatarImage, getAvatar } = useContext(AuthContext);
+    const avatar = user.avatar;
+    const fundo = user.background;
 
+    const uriAvatar = url + avatarImage.src;
+
+    const [ modalSemImagem, setModalSemImagem ] = useState(false)
+    const [controleModal, setControleModal] = useState(false);
+
+    useEffect(() => {
+        if (avatar === "notImage" || fundo === "notImage") {
+            setModalSemImagem(true);
+        }
+    }, []);
     return(
         <View style={styles.container}>
             <View style={styles.backImg}>
@@ -21,7 +32,7 @@ const Profile = () => {
                 />
                 <Image
                     style={styles.avatar}
-                    source={{ uri: 'https://www.atrevida.com.br/wp-content/uploads/2021/08/josh-beauchamp-danca-funk-brasileiro-sem-camisa-e-web-vai-a-loucura.jpg'}}
+                    source={{ uri: uriAvatar}}
                 />
             </View>
             <View style={styles.containerName01}>
@@ -29,7 +40,28 @@ const Profile = () => {
                 <ProfileText title={'Nome de Usuário'} text={user.username}/>
                 <ProfileText title={'Email'} text={user.email}/>
                 <ProfileText title={'Turma'} text={user.turma}/>
+                {/* <TouchableOpacity onPress={()=> createAvatar()}> */}
+                <TouchableOpacity onPress={()=> getAvatar()}>
+                    <Text>
+                        {/* {avatarImage.src} */}
+                        {uriAvatar}
+                    </Text>
+                </TouchableOpacity>
             </View>
+            {/* <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalSemImagem}
+            >
+                <TouchableOpacity
+                    onPress={()=> createAvatar()}
+                >
+                    <Text style={{backgroundColor: 'red'}}>
+                        o botão
+                    </Text>
+                </TouchableOpacity>
+
+            </Modal> */}
         </View>
     );
 }

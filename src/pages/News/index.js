@@ -31,13 +31,6 @@ const News = () =>{
                 keyExtractor={(item, index) => String(index)}
             />
         </ScrollView>
-
-        // <View style={{backgroundColor: '#000', flex: 1}}>
-        //     <Button
-        //         title="teste"
-        //         onPress={()=> console.log(viewNews())}
-        //     />
-        // </View>
     );
 }
 

@@ -16,16 +16,17 @@ const TabBarCustom = ({ state, descriptors, navigation }) => {
                         const event = navigation.emit({
                             type: 'tabPress',
                             target: route.key,
-                            canPreventDefault: true
+                            canPreventDefault: true,
                         });
 
-                        if ( !isFocused && !event.defaultPrevent){
-                            navigation.navigate({ name: route.name, marge: true});
+                        if (!isFocused && !event.defaultPrevented) {
+                            navigation.navigate(route.name, route.params);
                         }
-                    }
+                    };
 
                     return(
                         <TouchableOpacity
+                            key={route.key}
                             accessibilityRole="button"
                             accessibilityState={isFocused ? { selected: true } : {}}
                             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         gap: 10,
         elevation: 10,
-        borderRadius: 15
+        borderRadius: 15,
     },
     bottomTab:{
         justifyContent: 'center',

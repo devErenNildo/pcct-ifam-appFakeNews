@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
         marginTop: 30,
         overflow: 'hidden',
         backgroundColor: '#D9D9D9',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
+        borderRadius: 10,
         alignItems: 'center',
         alignSelf: 'center',
     },
@@ -57,9 +58,12 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     bottomBar:{
+        borderTopWidth: 1,
+        elevation: 10,
         flexDirection: 'row',
         backgroundColor: '#D9D9D9',
-        // width: '85%',
+        paddingHorizontal: 15,
+        paddingVertical: 5
     }
 });
 
