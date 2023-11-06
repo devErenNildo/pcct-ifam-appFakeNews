@@ -9,7 +9,7 @@ export const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
 
     const [ user, setUser ] = useState(null);
-    const [ avatarImage, setAvatarImage ] = useState(null);
+    const [ avatarImage, setAvatarImage ] = useState('');
     const [ loading, setLoading ] = useState(false);
     const [ token, setToken ] = useState('');
     const [ news, setNews ] = useState([]);
@@ -116,15 +116,13 @@ const AuthProvider = ({ children }) => {
             // console.log(response.data);
             response.data.forEach((e) => {
                 if(e.user === user._id){
-                    setAvatarImage({
-                        id: e._id,
-                        src: e.src.slice(6)
-                    });
-                    console.log(avatarImage);
+                    if (JSON.stringify(e.src.slice(6)) !== JSON.stringify(avatarImage)) {
+                        setAvatarImage( e.src.slice(6));
+                    }
                 }
             });
         } catch (error) {
-            
+            Alert.alert("Errro", "Falha ao carregar sua imagem de perfil");
         }
     }
 

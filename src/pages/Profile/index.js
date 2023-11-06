@@ -13,7 +13,7 @@ const Profile = () => {
     const avatar = user.avatar;
     const fundo = user.background;
 
-    const uriAvatar = url + avatarImage.src;
+    const uriAvatar = url + avatarImage;
 
     const [ modalSemImagem, setModalSemImagem ] = useState(false)
     const [controleModal, setControleModal] = useState(false);
@@ -23,6 +23,11 @@ const Profile = () => {
             setModalSemImagem(true);
         }
     }, []);
+
+    useEffect(()=> {
+        getAvatar();
+        console.log('entrou effect avayar');
+    }, [avatarImage]);
     return(
         <View style={styles.container}>
             <View style={styles.backImg}>
