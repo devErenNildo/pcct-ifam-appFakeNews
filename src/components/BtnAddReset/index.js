@@ -1,12 +1,18 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 
-const Btn = (props) => {
+const BtnAddReset = (props) => {
+
+    const press = () => {
+        props.onPress();
+        props.reset();
+
+    }
     return(
         <View style={{alignItems: 'center'}}>
             <TouchableOpacity
                 style={[styles.container, {backgroundColor: props.color}]}
-                onPress={props.onPress}
+                onPress={press}
 
             >
                 <Text style={styles.text}>
@@ -33,4 +39,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Btn;
+export default BtnAddReset;

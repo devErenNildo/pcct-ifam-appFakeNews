@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 // import {FontAwesome6} from 'react-native-vector-icons'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform, SafeAreaView } from "react-native";
 
 const TabBarCustom = ({ state, descriptors, navigation }) => {
     return(

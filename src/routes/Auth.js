@@ -6,6 +6,8 @@ import News from "../pages/News";
 import Warnings from "../pages/Warnings";
 import Publish from "../pages/Publish";
 
+import { KeyboardAvoidingView } from "react-native";
+
 import TabBarCustom from "../components/TabBarCustom";
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import { ScrollView, FlatList, View, Text, TouchableOpacity, Button } from "react-native";
+import { ScrollView, FlatList, View, Text, TouchableOpacity, Button, LogBox } from "react-native";
 import Post from "../../components/Post";
 
 import { AuthContext } from "../../contexts/auth";
@@ -7,8 +7,6 @@ import { AuthContext } from "../../contexts/auth";
 const News = () =>{
 
     const { viewNews, news } = useContext(AuthContext);
-
-    // const [ posts, setPosts ] = useState([]);
 
     useEffect(()=>{
         viewNews();

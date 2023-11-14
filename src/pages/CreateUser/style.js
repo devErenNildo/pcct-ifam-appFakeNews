@@ -31,7 +31,27 @@ const styles = StyleSheet.create({
         borderColor: '#808080',
         borderRadius: 15,
         marginTop: 25
+    },
+    imageAvatar: {
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        marginTop: 10,
+        borderWidth: 1,
+    },
+    boxButtomModal04: {
+        marginTop: '10%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
 
+    },
+    buttomModal04: {
+        width: '47%',
+        borderRadius: 10,
+        alignItems: 'center'
+    },
+    textButtomModaL04: {
+        padding: 20
     }
 });
 

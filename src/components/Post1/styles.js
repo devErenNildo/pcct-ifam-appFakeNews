@@ -1,14 +1,17 @@
-import { StyleSheet, Vibration } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container:{
-        // alignItems: 'center',
+        alignItems: 'center',
         backgroundColor: '#2F4F4F'
     },
     post:{
-        width: '100%',
+        width: '85%',
         marginTop: 30,
         overflow: 'hidden',
+        backgroundColor: '#D9D9D9',
+        // borderTopLeftRadius: 10,
+        // borderTopRightRadius: 10,
         borderRadius: 10,
         alignItems: 'center',
         alignSelf: 'center',
@@ -31,15 +34,11 @@ const styles = StyleSheet.create({
     userText:{
         flex: 1,
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#000'
     },
     img:{
         width: '100%',
-        height: 350,
-    },
-    liksAndComment: {
-        flex: 1,
-        alignItems: 'flex-start'
+        height: 200,
     },
     textTitle:{
         color: '#000',
@@ -59,24 +58,12 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     bottomBar:{
-        // borderBottomWidth: 1,
+        borderTopWidth: 1,
+        elevation: 10,
         flexDirection: 'row',
-        // backgroundColor: '#D9D9D9',
+        backgroundColor: '#D9D9D9',
         paddingHorizontal: 15,
-        paddingTop: 5,
-        alignItems: 'center',
-        gap: 20
-    },
-    boxTitleComments: {
-        alignItems: 'center'
-    },
-    titleComments: {
-        color: '#fff',
-        fontWeight: 'bold',
-        alignItems: 'center'
-    },
-    boxNumberLikes:{
-        paddingHorizontal: 20
+        paddingVertical: 5
     }
 });
 

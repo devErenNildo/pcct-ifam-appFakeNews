@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         marginTop: 30,
         marginLeft: 20,
-        borderWidth: 1
     },
     containerName01:{
         marginTop: 220,

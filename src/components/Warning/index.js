@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
+import url from "../../services/url";
 
 export const Warning = ({item}) => {
 
@@ -12,7 +13,7 @@ export const Warning = ({item}) => {
                 <View style={styles.boxUserImg}>
                     <Image
                         source={{
-                            uri: item.user.avatar
+                            uri: url + item.user.avatarSrc.slice(6)
                         }}
                         style={styles.userImg}
                     />
