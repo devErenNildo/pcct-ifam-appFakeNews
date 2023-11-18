@@ -30,6 +30,10 @@ const AuthProvider = ({ children }) => {
     // IMAGEM DE PREVISUALIZAÇÃO DO POST
     const [ postImage, setPostImage ] = useState(null);
 
+// DADOS DO USUÁRIO QUE FEZ LOGIN
+    const [ userComment, setUserComment ] = useState('');
+
+
     const navigation = useNavigation();
 
 
@@ -41,7 +45,7 @@ const AuthProvider = ({ children }) => {
                 password: password
             });
 
-            const { name, username, turma, _id, avatarSrc } = response.data.user;
+            const { name, username, turma, _id, avatarSrc, servidor } = response.data.user;
             const { token } = response.data;
             setToken(token);
             setUser({
@@ -50,7 +54,8 @@ const AuthProvider = ({ children }) => {
                 turma,
                 _id,
                 email: email,
-                avatarSrc
+                avatarSrc,
+                servidor
             }); 
             api.defaults.headers['Authorization'] = `Bearer ${token}`
             setLoading(false);
@@ -130,6 +135,7 @@ const AuthProvider = ({ children }) => {
                 name: avatarCadastro.fileName,
                 type: avatarCadastro.type
             });
+            data.append('servidor', false);
 
             const response = await api.post('/user', data);
 
@@ -239,9 +245,28 @@ const AuthProvider = ({ children }) => {
             const response = await api.post('/post/create', data);
 
             resetImage();
+            viewNews();
             Alert.alert('Tudo certo', 'Publicação realizada com sucesso');
         } catch (error) {
             Alert.alert("Erro", "Aconteceu um erro inesperado ao realizar sua publicação, erro !!!");
+            setLoading(false);
+        }
+    }
+
+
+    const publicarAviso = async (title, text, turma) => {
+        try {
+            setLoading(true);
+            const response = api.post('/aviso/create', {
+                title, 
+                text,
+                turma,
+                user: user._id
+            });   
+            setLoading(false);
+            viewWarning()
+        } catch (error) {
+            Alert.alert('Erro', 'Aconteceu um erro inesperado ao criar seu aviso')
             setLoading(false);
         }
     }
@@ -257,7 +282,9 @@ const AuthProvider = ({ children }) => {
 
             const response = await api.patch(`/post/comment/${idPost}`, {
                 userId: user._id,
-                comment: msg
+                comment: msg,
+                username: user.username,
+                src: user.avatarSrc
             });
             viewNews();
             
@@ -287,83 +314,14 @@ const AuthProvider = ({ children }) => {
         setPostImage(null);
         navigation.navigate('Login');
     }
+    
+    // BUSCAR USER POR ID E SETA NA VARIÁVEL "USERCOMMENT"
+    const buscarUserId = async (id) => {
 
-    const getAvatar = async () => {
-        try {
-            const response = await api.get('/pictures/avatar');
-            response.data.forEach((e) => {
-                if(e.user === user._id){
-                    if (JSON.stringify(e.src.slice(6)) !== JSON.stringify(avatarImage)) {
-                        setAvatarImage( e.src.slice(6));
-                    }
-                }
-            });
-        } catch (error) {
-            Alert.alert("Errro", "Falha ao carregar sua imagem de perfil");
+        const response = await api.get(`/user/${id}`);
+        if (JSON.stringify(response.data) !== JSON.stringify(userComment)) {
+            setUserComment(response.data)
         }
-    }
-
-    const createAvatar = async () => {
-        Alert.alert("Selecione", "De onde você quer pegar a foto", [
-            {
-                text: "Galeria",
-                onPress: () => pickImageFromGalery(),
-                style: "default"
-            },
-            {
-                text: "Câmera",
-                onPress: () => pickImageFromCamera(),
-                style: "default"
-            }
-        ]);
-    }
-
-    const pickImageFromGalery = async () => {
-
-        const options = {
-            mediaType: 'photo'
-        }
-
-        const result = await launchImageLibrary(options);
-            try {
-                const image = result.assets[0];
-
-                const data = new FormData();
-                data.append('file', {
-                    uri: image.uri,
-                    name: image.fileName,
-                    type: image.type
-                });
-                data.append('name', 'imageUser');
-                data.append('user', user._id);
-                const response = await api.post('/pictures/avatar', data);
-                console.log(response.data);
-                Alert.alert("Tudo certo", "Imagem atualizada com sucesso");
-            } catch (error) {
-                Alert.alert("Erro", "Erro ao carregar a imagem, tente novamente");
-                console.error(error);
-            }
-
-    }
-
-    const pickImageFromCamera = async () => {
-        const options = {
-            mediaType: 'photo'
-        }
-        launchCamera(options, (response) => {
-            if (response.didCancel) {
-                console.log('A captura de imagem da câmera foi cancelada.');
-            } else if (response.error) {
-                console.log('Ocorreu um erro ao capturar imagem da câmera:', response.error);
-            } else {
-              // Aqui você pode lidar com a imagem capturada, por exemplo, exibindo-a em sua interface ou enviando-a para o servidor.
-                const image = response.assets[0];
-                // console.log(image);
-                setPostImage(image.uri);
-                console.log('Imagem capturada:', postImage);
-
-            }
-        });        
 
     }
 
@@ -403,12 +361,19 @@ const AuthProvider = ({ children }) => {
             // DIRECIONA PARA A TELA DE LOGIN
             logOff,
 
+            // busca um usuário pelo id 
+            buscarUserId,
+
+            // usuário buscado pelo id, será usado para exibir quem fez um comentário
+            userComment,
+
+            // SELEÇÃO DE UMA IMAGEM PARA FAZER UM POST 
+            postImage,
+
+            publicarAviso,
 
             selectImagecreatePost,
-            createAvatar,
-            getAvatar,
             avatarImage,
-            postImage,
             resetImage,
             publishPost,
 

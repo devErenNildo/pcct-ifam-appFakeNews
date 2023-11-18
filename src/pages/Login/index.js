@@ -14,6 +14,11 @@ const Login = ({navigation}) =>{
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
 
+    const reset = () => {
+        setEmail('');
+        setPassword('');
+    }
+
     const { login, loading } = useContext(AuthContext);
 
     return(
@@ -48,7 +53,7 @@ const Login = ({navigation}) =>{
 
             {/* Botão de Login */}
             <TouchableOpacity
-                onPress={()=> login(email, password)}
+                onPress={()=> {login(email, password); reset()}}
                 // onPress={()=> console.log(email, password)}
                 style={styles.containerBtLogin}
             >

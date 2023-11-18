@@ -43,7 +43,7 @@ const Post = ({ item }) => {
                     visible={viewComments}
                     backdropColor='#2F4F4F'
                 >
-                    <InputComment onPress={() => setViewComments(!viewComments)} idPost={item._id} allComents={item.comments}/>
+                    <InputComment onPress={() => setViewComments(false)} idPost={item._id} allComents={item.comments}/>
                 </Modal>
             </View>
             {/* BOTÃO DE LIKES E COMENTÁRIOS */}
@@ -59,7 +59,7 @@ const Post = ({ item }) => {
                 </TouchableOpacity>
                 
                 {/* comentário */}
-                <TouchableOpacity onPress={()=> setViewComments(!viewComments)}>
+                <TouchableOpacity onPress={()=> setViewComments(true)}>
                     <Icon name={'comment-o'} size={30} color={'#000'} />
                 </TouchableOpacity>
             </View>

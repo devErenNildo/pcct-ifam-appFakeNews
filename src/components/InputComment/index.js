@@ -1,34 +1,46 @@
-import React, { useContext, useState } from "react";
-import { View, Text, TextInput, StyleSheet, Pressable, TouchableOpacity, FlatList } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { View, Text, TextInput, StyleSheet, Pressable, TouchableOpacity, FlatList, Image } from "react-native";
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import url from "../../services/url";
 
 import { AuthContext } from "../../contexts/auth";
 
 const InputComment = (props) => {
 
     const [ msgComment, setMsgComment ] = useState(null);
+    const { commentAndPost, buscarUserId, userComment } = useContext(AuthContext);
 
 
     const data = props.allComents;
 
-
     const CommentComponet = ({ item }) => {
 
+        // buscarUserId(item.userId);
+
         return(
-            <View>
-                <Text>
-                    {item.comment}
-                </Text>
+            <View style={{flexDirection: 'row', alignItems: 'flex-start', gap: 15, paddingVertical: 10}}>
+                <Image
+                    style={{width: 50, height: 50, borderRadius: 25}}
+                    source={{ uri: url + item.src.slice(6)}}
+                />
+
+                {/* PARTE DO NOME DO USUÁRIO E O COMENTÁRIO QUE FEZ */}
+                <View style={{paddingRight: '30%'}}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 17, color: '#fff'}}>
+                        {item.username}
+                    </Text>
+                    <Text style={{ color: '#b0b0b0'}}>
+                        {item.comment}
+                    </Text>
+                </View>
             </View>
         );
-
     }
-
-    const { commentAndPost } = useContext(AuthContext);
 
 
     return(
-        <View style={styles.container}>
+
+        <Pressable onPress={()=> props.onPress} style={styles.container}>
             <Pressable
                 onPress={props.onPress}
                 style={styles.box}
@@ -42,6 +54,7 @@ const InputComment = (props) => {
                         <FlatList
                             data={data}
                             renderItem={({item}) => <CommentComponet item={item}/>}
+                            keyExtractor={(item, index) => String(index)}
                         />
                     </View>
                     {/* ARÉA DO INPUT DE COMENTÁRIO */}
@@ -62,7 +75,7 @@ const InputComment = (props) => {
                     </View>
                 </View>
             </Pressable>
-        </View>
+        </Pressable>
     );
 }
 
